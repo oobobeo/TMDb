@@ -24,7 +24,7 @@ Things you may want to cover:
 * ...
 
 
-# commands
+# commands used to setup db
 
 $ rails g model Person name:string department:string character:string job:string
 
