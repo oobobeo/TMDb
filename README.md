@@ -23,6 +23,7 @@ Things you may want to cover:
 
 * ...
 
+
 # commands
 
 $ rails g model Person name:string department:string character:string job:string
@@ -36,3 +37,21 @@ $ rails g migration CreateTVPersonsJoinTable tv person
 $ rails g migration CreateMoviesPersonsJoinTable movie person
 
 $ rake db:migrate
+
+
+# scripts
+
+* crawl movie by id
+$ rails runner lib/crawl_movie.rb [id1,[id2, .. ] ]
+
+* crawl tv by id
+$ rails runner lib/crawl_tv.rb [id1,[id2, .. ] ]
+
+* crawl entire movie
+$ rails runner lib/crawl_entire_movie.rb
+
+* crawl entire tv
+$ rails runner lib/crawl_entire_movie.rb
+
+* crawl entire person
+$ rails runner lib/crawl_entire_movie.rb
