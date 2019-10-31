@@ -49,18 +49,4 @@ class PersonsController < ApplicationController
 		params.require(:post).permit(:name,:department,:character,:job)
 	end
 
-	def initializeDB(person_ids)
-		puts 'initializing Person DB'
-		person_ids.each do |data|
-			data = JSON.parse data
-			id,name,depertment,character,job = data['id'],data['name'],data['department'],data['character'],data['job']
-			person = Person.new({'id'=>id,'name'=>name,'department'=>department,'character'=>character,'job'=>job })
-			person.save
-			puts person.inspect
-			break
-		end
-	end
-
-
-
 end

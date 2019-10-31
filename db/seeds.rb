@@ -7,14 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-require_relative('../lib/crawl_entire_movie') # entire_movie_ids
-require_relative('../lib/crawl_entire_person') # entire_person_ids
-require_relative('../lib/crawl_entire_tv') # entire_tv_ids
-require_relative('../lib/crawl_movie') # movie(id)
-require_relative('../lib/crawl_tv') # tv(id)
 
-# entire_person_ids.each do |id|
-# 	tv(id)
+# require_relative(Rails.root.join('app','models','movie.rb').to_s) # entire_movie_ids
+# require_relative(Rails.root.join('app','models','person.rb').to_s) # entire_person_ids
+# require_relative(Rails.root.join('app','models','tv.rb').to_s) # entire_tv_ids
+
+
+Person.initializeDB
+Movie.initializeDB
+Tv.initializeDB
 
 
 

@@ -49,17 +49,4 @@ class MoviesController < ApplicationController
 		params.require(:post).permit(:title)
 	end
 
-	def initializeDB(movie_ids)
-		puts 'initializing Movie DB'
-		movie_ids.each do |data|
-			data = JSON.parse data
-			id, title = data['id'], data['original_title']
-			# How do I save movie data???
-			movie = Movie.new({'id' => id, 'title' => title})
-			movie.save
-			puts movie.inspect
-			break
-		end
-	end
-
 end
