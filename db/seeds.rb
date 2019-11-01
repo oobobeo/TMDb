@@ -10,9 +10,13 @@
 
 
 # Person.initializeDB
-Movie.initializeDB
+# Movie.initializeDB
 # Tv.initializeDB
-
+Person.fastInitializeDB
+Movie.fastInitializeDB
+Tv.fastInitializeDB
+MovieRole.initializeDB
+TvRole.initializeDB
 
 
 # @product.types << Type.first

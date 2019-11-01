@@ -36,7 +36,6 @@ $ rails g model MovieRole person_id:int movie_id:int department:string character
 
 $ rails g model TVRole person_id:int movie_id:int department:string character:string job:string
 
-
 $ rake db:migrate
 
 

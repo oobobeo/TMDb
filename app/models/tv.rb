@@ -40,16 +40,23 @@ class Tv < ApplicationRecord
 	end
 
 
-	def self.initializeDB(tv_ids)
-		puts 'initializing TV DB'
-		tv_ids.each do |data|
-			data = JSON.parse data
+	def self.initializeDB
+		entire_tv_ids.each do |id|
+			data = crawl_tv(id)
 			id, name = data['id'], data['name']
-			tv = TV.new({'id' => id, 'name' => name})
-			# How do I save movie data???
+			tv = Tv.new({'id' => id, 'name' => name})
 			tv.save
 			puts tv.inspect
-			break
+			# break
+		end
+	end
+
+	def self.fastInitializeDB
+		entire_tv_ids.each do |data|
+			id,name = data['id'], data['original_name']
+			movie = Tv.new({'id' => id, 'name' => name})
+			movie.save
+			puts movie.inspect
 		end
 	end
 

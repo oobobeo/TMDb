@@ -15,9 +15,9 @@ class Person < ApplicationRecord
 	def self.crawl_person(id)
 		data = Net::HTTP.get(URI.parse("https://api.themoviedb.org/3/person/#{id}?api_key=#{@apikey}&language=en-US"))
 		data = JSON.parse data
-		id,name,depertment,character,job = data['id'],data['name'],data['department'],data['character'],data['job']
+		id,name = data['id'],data['name']
 		# puts {'id'=>id,'name'=>name,'department'=>department,'character'=>character,'job'=>job }
-		return {'id'=>id,'name'=>name,'department'=>department,'character'=>character,'job'=>job }
+		return {'id'=>id,'name'=>name}
 	end
 
 	def self.entire_person_ids
@@ -36,15 +36,40 @@ class Person < ApplicationRecord
 		return output
 	end
 
-	def self.initializeDB(person_ids)
-		person_ids.each do |data|
-			data = JSON.parse data
-			id,name,depertment,character,job = data['id'],data['name'],data['department'],data['character'],data['job']
-			person = Person.new({'id'=>id,'name'=>name,'department'=>department,'character'=>character,'job'=>job })
+	def self.crawl_movie_credit(id)
+		data = Net::HTTP.get(URI.parse("https://api.themoviedb.org/3/person/#{id}/movie_credits?api_key=#{@apikey}&language=en-US"))
+		data = JSON.parse data
+		# cast, crew = data['cast'], data['crew']
+		# return cast + crew
+		return data
+	end
+
+	def self.crawl_tv_credit(id)
+		data = Net::HTTP.get(URI.parse("https://api.themoviedb.org/3/person/#{id}/tv_credits?api_key=#{@apikey}&language=en-US"))
+		data = JSON.parse data
+		# cast, crew = data['cast'], data['crew']
+		# return cast + crew
+		return data
+	end
+
+	def self.initializeDB
+		entire_person_ids.each do |id|
+			data = crawl_person(id)
+			id,name = data['id'],data['name']
+			person = Person.new({'id'=>id,'name'=>name})
 			person.save
 			puts person.inspect
-			break
+			# break
 		end
 	end
-	
+
+	def self.fastInitializeDB
+		entire_person_ids.each do |data|
+			id,name = data['id'], data['name']
+			movie = Person.new({'id' => id, 'name' => name})
+			movie.save
+			puts movie.inspect
+		end
+	end
+
 end

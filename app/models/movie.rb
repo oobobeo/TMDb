@@ -39,16 +39,23 @@ class Movie < ApplicationRecord
 	end
 
 
-	def self.initializeDB(movie_ids)
-		movie_ids.each do |data|
-			data = JSON.parse data
+	def self.initializeDB
+		entire_movie_ids.each do |id|
+			data = crawl_movie(id)
 			id, title = data['id'], data['original_title']
-			# How do I save movie data???
 			movie = Movie.new({'id' => id, 'title' => title})
 			movie.save
 			puts movie.inspect
-			break
+			# break
 		end
 	end
 
+	def self.fastInitializeDB
+		entire_movie_ids.each do |data|
+			id,title = data['id'], data['original_title']
+			movie = Movie.new({'id' => id, 'title' => title})
+			movie.save
+			puts movie.inspect
+		end
+	end
 end
