@@ -1,7 +1,6 @@
 class Tv < ApplicationRecord
-	has_and_belongs_to_many :persons
-
-
+	has_many :tvroles
+	has_many :persons, through: :tvroles
 
 	require 'date'
 	require 'zlib'
@@ -53,7 +52,5 @@ class Tv < ApplicationRecord
 			break
 		end
 	end
-
-
 
 end

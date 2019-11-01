@@ -2,12 +2,6 @@
 
 one:
   name: MyString
-  department: MyString
-  character: MyString
-  job: MyString
 
 two:
   name: MyString
-  department: MyString
-  character: MyString
-  job: MyString

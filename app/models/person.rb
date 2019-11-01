@@ -1,9 +1,9 @@
 class Person < ApplicationRecord
-	has_and_belongs_to_many :tvs
-	has_and_belongs_to_many :movies
+	has_many :movieroles
+	has_many :movies, through: :movieroles
 
-
-
+	has_many :tvroles
+	has_many :tvs, through: :tvroles
 
 	require 'net/http'
 	require 'date'
@@ -46,11 +46,5 @@ class Person < ApplicationRecord
 			break
 		end
 	end
-
-
-
-
-
-
-
+	
 end

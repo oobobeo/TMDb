@@ -26,15 +26,16 @@ Things you may want to cover:
 
 # commands used to setup db
 
-$ rails g model Person name:string department:string character:string job:string
+$ rails g model Person name:string
 
 $ rails g model Movie title:string
 
 $ rails g model TV name:string
 
-$ rails g migration CreateTVPersonsJoinTable tv person
+$ rails g model MovieRole person_id:int movie_id:int department:string character:string job:string
 
-$ rails g migration CreateMoviesPersonsJoinTable movie person
+$ rails g model TVRole person_id:int movie_id:int department:string character:string job:string
+
 
 $ rake db:migrate
 
@@ -55,3 +56,6 @@ $ rails runner lib/crawl_entire_movie.rb
 
 * crawl entire person
 $ rails runner lib/crawl_entire_movie.rb
+
+* initialize db with TMDb crawler
+$ rails db:reset

@@ -10,21 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_120932) do
+ActiveRecord::Schema.define(version: 2019_11_01_081926) do
 
-  create_table "movies", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "movies_people", id: false, force: :cascade do |t|
-    t.integer "movie_id", null: false
-    t.integer "person_id", null: false
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string "name"
+  create_table "movie_roles", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "movie_id"
     t.string "department"
     t.string "character"
     t.string "job"
@@ -32,9 +22,26 @@ ActiveRecord::Schema.define(version: 2019_10_31_120932) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "people_tvs", id: false, force: :cascade do |t|
-    t.integer "tv_id", null: false
-    t.integer "person_id", null: false
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tv_roles", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "tv_id"
+    t.string "department"
+    t.string "character"
+    t.string "job"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tvs", force: :cascade do |t|

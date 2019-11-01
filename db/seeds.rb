@@ -8,18 +8,14 @@
 
 
 
-# require_relative(Rails.root.join('app','models','movie.rb').to_s) # entire_movie_ids
-# require_relative(Rails.root.join('app','models','person.rb').to_s) # entire_person_ids
-# require_relative(Rails.root.join('app','models','tv.rb').to_s) # entire_tv_ids
 
-
-Person.initializeDB
+# Person.initializeDB
 Movie.initializeDB
-Tv.initializeDB
+# Tv.initializeDB
 
 
 
-
+# @product.types << Type.first
 
 
 

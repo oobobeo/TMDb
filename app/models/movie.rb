@@ -1,6 +1,6 @@
 class Movie < ApplicationRecord
-	has_and_belongs_to_many :persons
-
+	has_many :movieroles
+	has_many :persons, through: :movieroles
 
 
 	require 'date'
@@ -50,4 +50,5 @@ class Movie < ApplicationRecord
 			break
 		end
 	end
+
 end
