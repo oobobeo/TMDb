@@ -1,27 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+# Versions
 
-* Ruby version
+$ ruby -v
+2.5.1p57
 
-* System dependencies
+$ rails -v
+6.0.0
 
-* Configuration
 
-* Database creation
+# Overview
 
-* Database initialization
+* 스크립트를 이용해 TMDb 의 데이터를 받아와 Person, Movie, TV의 데이터베이스(sqlite3) 에 저장함
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Views, Control 부분은 아직 만들지 못함
 
 
 # commands used to setup db
@@ -58,3 +51,6 @@ $ rails runner lib/crawl_entire_movie.rb
 
 * initialize db with TMDb crawler
 $ rails db:reset
+
+* update DB with changes (changes in the last 24h will be effected)
+$ rails runner lib/updateDB.rb
