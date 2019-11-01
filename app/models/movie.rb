@@ -57,12 +57,38 @@ class Movie < ApplicationRecord
 		movie_ids = Net::HTTP.get(URI.parse(movie_ids_url))
 		movie_ids = Zlib::GzipReader.new(StringIO.new(movie_ids.to_s))
 
+		counter = 0
 		movie_ids.each do |data|
 			data = JSON.parse data
 			id,title = data['id'], data['original_title']
 			movie = Movie.new({'id' => id, 'title' => title})
 			movie.save
 			puts movie.inspect
+			counter = 0
+			if counter % 100 == 0
+				puts movie.inspect
+			end
+			counter += 1
+		end
+	end
+
+	def self.changed_ids
+		url = "https://api.themoviedb.org/3/movie/changes?api_key=#{@apikey}&page=1"
+		data = Net::HTTP.get(URI.parse(url))
+		data = JSON.parse data
+		output = []
+		data['results'].each do |d|
+			output << d['id']
+		end
+		return output
+	end
+
+	def self.updateDB
+		ids = changed_ids
+		ids.each do |id|
+			data = crawl_movie(id)
+			id,title = data['id'], data['title']
+			Movie.update(id,'title'=>title)
 		end
 	end
 end

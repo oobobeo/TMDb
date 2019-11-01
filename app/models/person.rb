@@ -70,13 +70,37 @@ class Person < ApplicationRecord
 		person_ids_url = "http://files.tmdb.org/p/exports/person_ids_#{yesterday}.json.gz"
 		person_ids = Net::HTTP.get(URI.parse(person_ids_url))
 		person_ids = Zlib::GzipReader.new(StringIO.new(person_ids.to_s))
+
+		counter = 0
 		person_ids.each do |data|
 			data = JSON.parse data
 			id,name = data['id'], data['name']
-			movie = Person.new({'id' => id, 'name' => name})
-			movie.save
-			puts movie.inspect
+			person = Person.new({'id' => id, 'name' => name})
+			person.save
+			if counter % 100 == 0
+				puts person.inspect
+			end
+			counter += 1
 		end
 	end
 
+	def self.changed_ids
+		url = "https://api.themoviedb.org/3/person/changes?api_key=#{@apikey}&page=1"
+		data = Net::HTTP.get(URI.parse(url))
+		data = JSON.parse data
+		output = []
+		data['results'].each do |d|
+			output << d['id']
+		end
+		return output
+	end
+
+	def self.updateDB
+		ids = changed_ids
+		ids.each do |id|
+			data = crawl_person(id)
+			id,name = data['id'], data['name']
+			Person.update(id,'name'=>name)
+		end
+	end
 end
