@@ -35,22 +35,29 @@ $ rake db:migrate
 # scripts
 
 * crawl movie by id
+
 $ rails runner lib/crawl_movie.rb [id1,[id2, .. ] ]
 
 * crawl tv by id
+
 $ rails runner lib/crawl_tv.rb [id1,[id2, .. ] ]
 
 * crawl entire movie
+
 $ rails runner lib/crawl_entire_movie.rb
 
 * crawl entire tv
+
 $ rails runner lib/crawl_entire_movie.rb
 
 * crawl entire person
+
 $ rails runner lib/crawl_entire_movie.rb
 
 * initialize db with TMDb crawler
+
 $ rails db:reset
 
 * update DB with changes (changes in the last 24h will be effected)
+
 $ rails runner lib/updateDB.rb
