@@ -64,7 +64,14 @@ class Person < ApplicationRecord
 	end
 
 	def self.fastInitializeDB
-		entire_person_ids.each do |data|
+		yesterday = Date.today.prev_day.to_s.tr('-','_')
+		yesterday = yesterday[5..-1] + '_' + yesterday[0..3]
+		
+		person_ids_url = "http://files.tmdb.org/p/exports/person_ids_#{yesterday}.json.gz"
+		person_ids = Net::HTTP.get(URI.parse(person_ids_url))
+		person_ids = Zlib::GzipReader.new(StringIO.new(person_ids.to_s))
+		person_ids.each do |data|
+			data = JSON.parse data
 			id,name = data['id'], data['name']
 			movie = Person.new({'id' => id, 'name' => name})
 			movie.save

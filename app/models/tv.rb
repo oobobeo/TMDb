@@ -27,7 +27,6 @@ class Tv < ApplicationRecord
 		# yesterday date
 		yesterday = Date.today.prev_day.to_s.tr('-','_')
 		yesterday = yesterday[5..-1] + '_' + yesterday[0..3]
-		
 		tv_series_url = "http://files.tmdb.org/p/exports/tv_series_ids_#{yesterday}.json.gz"
 		tv_series_ids = Net::HTTP.get(URI.parse(tv_series_url))
 		tv_series_ids = Zlib::GzipReader.new(StringIO.new(tv_series_ids.to_s))
@@ -52,7 +51,14 @@ class Tv < ApplicationRecord
 	end
 
 	def self.fastInitializeDB
-		entire_tv_ids.each do |data|
+		yesterday = Date.today.prev_day.to_s.tr('-','_')
+		yesterday = yesterday[5..-1] + '_' + yesterday[0..3]
+		tv_series_url = "http://files.tmdb.org/p/exports/tv_series_ids_#{yesterday}.json.gz"
+		tv_series_ids = Net::HTTP.get(URI.parse(tv_series_url))
+		tv_series_ids = Zlib::GzipReader.new(StringIO.new(tv_series_ids.to_s))
+
+		tv_series_ids.each do |data|
+			data = JSON.parse data
 			id,name = data['id'], data['original_name']
 			movie = Tv.new({'id' => id, 'name' => name})
 			movie.save

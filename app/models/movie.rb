@@ -51,7 +51,14 @@ class Movie < ApplicationRecord
 	end
 
 	def self.fastInitializeDB
-		entire_movie_ids.each do |data|
+		yesterday = Date.today.prev_day.to_s.tr('-','_')
+		yesterday = yesterday[5..-1] + '_' + yesterday[0..3]
+		movie_ids_url = "http://files.tmdb.org/p/exports/movie_ids_#{yesterday}.json.gz"
+		movie_ids = Net::HTTP.get(URI.parse(movie_ids_url))
+		movie_ids = Zlib::GzipReader.new(StringIO.new(movie_ids.to_s))
+
+		movie_ids.each do |data|
+			data = JSON.parse data
 			id,title = data['id'], data['original_title']
 			movie = Movie.new({'id' => id, 'title' => title})
 			movie.save
