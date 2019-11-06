@@ -58,6 +58,6 @@ $ rake db:migrate
 
 	$ rails db:reset
 
-* update DB with changes (changes in the last 24h will be effected)
+* update DB with changes (changes in the last 24h will be ffected)
 
 	$ rails runner lib/updateDB.rb
